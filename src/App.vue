@@ -1,22 +1,29 @@
 <script>
 import axios from "axios";
+import { store } from "./components/data/store.js";
+import AppMain from "./components/AppMain.vue";
 export default {
   data() {
     return {
-      pokemonUri:
-        "https://41tyokboji.execute-api.eu-central-1.amazonaws.com/dev/api/v1/pokemons?per=10&page=1",
+      store,
     };
   },
+  components: { AppMain },
+  methods: {
+    fetchPokemonList() {
+      axios.get(store.pokemonUri).then((res) => {
+        store.pokemonList = res.data.docs;
+      });
+    },
+  },
   mounted() {
-    axios.get(this.pokemonUri).then((res) => {
-      console.log(res.data);
-    });
+    this.fetchPokemonList();
   },
 };
 </script>
 
 <template>
-  <div class="container"></div>
+  <app-main></app-main>
 </template>
 
 <style lang="scss">
