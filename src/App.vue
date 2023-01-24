@@ -11,9 +11,16 @@ export default {
   components: { AppMain },
   methods: {
     fetchPokemonList() {
-      axios.get(store.pokemonUri).then((res) => {
-        store.pokemonList = res.data.docs;
-      });
+      store.isLoading = true;
+      axios
+        .get(store.pokemonUri)
+        .then((res) => {
+          store.pokemonList = res.data.docs;
+        })
+        .catch()
+        .then(() => {
+          store.isLoading = false;
+        });
     },
   },
   mounted() {
