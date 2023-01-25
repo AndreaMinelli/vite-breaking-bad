@@ -39,6 +39,7 @@ export default {
 .pokemon-card {
   border: 3px solid $yellow;
   padding: 10px;
+  height: 300px;
 
   &.grass {
     background-color: green;
