@@ -1,5 +1,6 @@
 <script>
 export default {
+  name: "Pokemon Card",
   props: {
     pokemon: Object,
   },
