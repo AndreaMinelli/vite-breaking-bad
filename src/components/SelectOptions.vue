@@ -10,11 +10,12 @@ export default {
     firstOption: String,
     options: Array,
   },
+  emits: ["selected-option"],
 };
 </script>
 
 <template>
-  <select v-model="selected">
+  <select v-model="selected" @change="$emit('selected-option', selected)">
     <option>{{ firstOption }}</option>
     <option v-for="option in options">{{ option }}</option>
   </select>

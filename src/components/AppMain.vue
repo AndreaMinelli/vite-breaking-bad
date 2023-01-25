@@ -12,6 +12,12 @@ export default {
     };
   },
   props: { pokemonTypes: Array },
+  emits: ["pokemon-type-selected"],
+  methods: {
+    getPokemonType(selected) {
+      this.$emit("pokemon-type-selected", selected);
+    },
+  },
 };
 </script>
 
@@ -21,14 +27,15 @@ export default {
       <select-options
         first-option="All"
         :options="pokemonTypes"
-        class="w-25"></select-options>
+        class="w-25"
+        @selected-option="getPokemonType"></select-options>
     </div>
 
     <app-loader
       v-if="store.isLoading"
       image="../assets/img/pikachu-loading.jpg">
     </app-loader>
-    <div v-else class="row row-cols-4">
+    <div v-else class="row row-cols-md-3 row-cols-lg-4">
       <div class="col" v-for="pokemon in store.pokemonList" :key="pokemon.id">
         <pokemon-card :pokemon="pokemon"></pokemon-card>
       </div>

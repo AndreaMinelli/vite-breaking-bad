@@ -30,10 +30,10 @@ export default {
   },
   components: { AppMain },
   methods: {
-    fetchPokemonList() {
+    fetchPokemonList(url) {
       store.isLoading = true;
       axios
-        .get(store.pokemonUri)
+        .get(url)
         .then((res) => {
           store.pokemonList = res.data.docs;
         })
@@ -42,15 +42,24 @@ export default {
           store.isLoading = false;
         });
     },
+    filterPokemonType(type) {
+      const url =
+        type === "All"
+          ? store.pokemonUri
+          : `${store.pokemonUri}?eq[type1]=${type}`;
+      this.fetchPokemonList(url);
+    },
   },
   mounted() {
-    this.fetchPokemonList();
+    this.fetchPokemonList(store.pokemonUri);
   },
 };
 </script>
 
 <template>
-  <app-main :pokemon-types="pokemonTypes"></app-main>
+  <app-main
+    :pokemon-types="pokemonTypes"
+    @pokemon-type-selected="filterPokemonType"></app-main>
 </template>
 
 <style lang="scss">
