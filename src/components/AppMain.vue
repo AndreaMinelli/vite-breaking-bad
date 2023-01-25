@@ -27,24 +27,26 @@ export default {
 
 <template>
   <div class="container">
-    <app-loader
-      v-if="store.isLoading"
-      image="../assets/img/pikachu-loading.jpg">
-    </app-loader>
-    <div v-else class="main-view">
-      <div class="select-type">
+    <div class="main-view">
+      <div v-show="!store.isLoading" class="select-type">
         <select-options
           first-option="All"
           :options="pokemonTypes"
           class="w-25"
           @selected-option="getPokemonType"></select-options>
       </div>
-      <div class="row row-cols-md-3 row-cols-lg-4">
+      <app-loader
+        v-if="store.isLoading"
+        image="../assets/img/pikachu-loading.jpg">
+      </app-loader>
+
+      <div v-else class="row row-cols-md-3 row-cols-lg-4">
         <div class="col" v-for="pokemon in store.pokemonList" :key="pokemon.id">
           <pokemon-card :pokemon="pokemon"></pokemon-card>
         </div>
       </div>
       <app-pagination
+        v-show="!store.isLoading"
         @change-page="changePage"
         class="justify-content-center mt-3"></app-pagination>
     </div>

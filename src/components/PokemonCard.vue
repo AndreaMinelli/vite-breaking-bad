@@ -40,6 +40,7 @@ export default {
   border: 3px solid $yellow;
   padding: 10px;
   height: 300px;
+  background-color: lightgray;
 
   &.grass {
     background-color: green;
