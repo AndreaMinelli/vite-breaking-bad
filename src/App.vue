@@ -35,7 +35,7 @@ export default {
   components: { AppMain },
   computed: {
     buildPokemonUri() {
-      if (this.pokemonType === "All") {
+      if (this.typeFilter === "All") {
         return `${store.pokemonUri}?page=${this.currentPage}`;
       } else {
         return `${store.pokemonUri}?page=${this.currentPage}&eq[type1]=${this.typeFilter}`;
@@ -61,9 +61,7 @@ export default {
 
     filterPokemonType(type) {
       this.currentPage = 1;
-      if (type !== "All") {
-        this.typeFilter = type;
-      }
+      this.typeFilter = type;
       this.fetchPokemonList(this.buildPokemonUri);
     },
     changePage(target) {
