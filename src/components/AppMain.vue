@@ -19,7 +19,11 @@ export default {
       store,
     };
   },
-  props: { pokemonTypes: Array },
+  props: {
+    pokemonTypes: Array,
+    nextPage: Number,
+    prevPage: Number,
+  },
   emits: [
     "pokemon-type-selected",
     "change-page",
@@ -69,9 +73,11 @@ export default {
         </div>
       </div>
       <app-pagination
+        :next-page="nextPage"
+        :prev-page="prevPage"
         v-show="!store.isLoading"
         @change-page="changePage"
-        class="justify-content-center mt-3"></app-pagination>
+        class="justify-content-center mt-1"></app-pagination>
     </div>
   </div>
 </template>

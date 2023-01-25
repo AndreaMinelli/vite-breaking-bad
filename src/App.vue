@@ -66,11 +66,17 @@ export default {
       this.fetchPokemonList(this.buildPokemonUri);
     },
     changePage(target) {
-      target === "prev"
-        ? (this.currentPage = this.prevPage)
-        : (this.currentPage = this.nextPage);
-
-      this.fetchPokemonList(this.buildPokemonUri);
+      if (target === "prev") {
+        if (this.prevPage) {
+          this.currentPage = this.prevPage;
+          this.fetchPokemonList(this.buildPokemonUri);
+        }
+      } else {
+        if (this.nextPage) {
+          this.currentPage = this.nextPage;
+          this.fetchPokemonList(this.buildPokemonUri);
+        }
+      }
     },
     pokemonNameFilter(text) {
       this.nameFilter = text;
@@ -88,6 +94,8 @@ export default {
 
 <template>
   <app-main
+    :next-page="nextPage"
+    :prev-page="prevPage"
     :pokemon-types="pokemonTypes"
     @pokemon-type-selected="filterPokemonType"
     @change-page="changePage"
