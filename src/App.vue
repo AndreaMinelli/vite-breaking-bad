@@ -6,6 +6,26 @@ export default {
   data() {
     return {
       store,
+      pokemonTypes: [
+        "Ground",
+        "Water",
+        "Flying",
+        "Bug",
+        "Ice",
+        "Grass",
+        "Psychic",
+        "Ghost",
+        "Rock",
+        "Poison",
+        "Electric",
+        "Fighting",
+        "Dark",
+        "Normal",
+        "Fairy",
+        "Fire",
+        "Steel",
+        "Dragon",
+      ],
     };
   },
   components: { AppMain },
@@ -30,7 +50,7 @@ export default {
 </script>
 
 <template>
-  <app-main></app-main>
+  <app-main :pokemon-types="pokemonTypes"></app-main>
 </template>
 
 <style lang="scss">

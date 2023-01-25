@@ -2,19 +2,28 @@
 import { store } from "./data/store";
 import PokemonCard from "./PokemonCard.vue";
 import AppLoader from "./AppLoader.vue";
+import SelectOptions from "./SelectOptions.vue";
 export default {
   name: "App Main",
+  components: { PokemonCard, AppLoader, SelectOptions },
   data() {
     return {
       store,
     };
   },
-  components: { PokemonCard, AppLoader },
+  props: { pokemonTypes: Array },
 };
 </script>
 
 <template>
   <div class="container">
+    <div class="select-type">
+      <select-options
+        first-option="All"
+        :options="pokemonTypes"
+        class="w-25"></select-options>
+    </div>
+
     <app-loader
       v-if="store.isLoading"
       image="../assets/img/pikachu-loading.jpg">
@@ -28,8 +37,12 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.select-type {
+  margin: 1rem 1rem 1rem auto;
+  text-align: end;
+}
 .row {
-  height: 100%;
+  height: 85%;
   overflow-y: auto;
 }
 
