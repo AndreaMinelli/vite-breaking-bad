@@ -3,11 +3,12 @@ body {
 }
 
 .container {
-  margin: 0 auto;
-  height: 600px;
+  height: 100vh;
   background-image: url("/src/assets/img/pokemon-bg.webp");
   background-position: center;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
-  padding: 100px 80px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
