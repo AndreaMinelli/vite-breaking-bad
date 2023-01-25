@@ -30,16 +30,17 @@ export default {
       prevPage: null,
       currentPage: null,
       typeFilter: "All",
+      nameFilter: "",
     };
   },
   components: { AppMain },
   computed: {
     buildPokemonUri() {
-      if (this.typeFilter === "All") {
-        return `${store.pokemonUri}?page=${this.currentPage}`;
-      } else {
-        return `${store.pokemonUri}?page=${this.currentPage}&eq[type1]=${this.typeFilter}`;
-      }
+      const currentPage = `?page=${this.currentPage}`;
+      const typeFilter =
+        this.typeFilter === "All" ? "" : `&eq[type1]=${this.typeFilter}`;
+      const nameFilter = this.nameFilter ? `&q[name]=${this.nameFilter}` : "";
+      return `${store.pokemonUri}${currentPage}${typeFilter}${nameFilter}`;
     },
   },
   methods: {
@@ -71,6 +72,13 @@ export default {
 
       this.fetchPokemonList(this.buildPokemonUri);
     },
+    pokemonNameFilter(text) {
+      this.nameFilter = text;
+    },
+    getNameFilter() {
+      this.currentPage = 1;
+      this.fetchPokemonList(this.buildPokemonUri);
+    },
   },
   mounted() {
     this.fetchPokemonList(store.pokemonUri);
@@ -82,7 +90,9 @@ export default {
   <app-main
     :pokemon-types="pokemonTypes"
     @pokemon-type-selected="filterPokemonType"
-    @change-page="changePage"></app-main>
+    @change-page="changePage"
+    @pokemon-name-filter="pokemonNameFilter"
+    @submit-name-filter="getNameFilter"></app-main>
 </template>
 
 <style lang="scss">

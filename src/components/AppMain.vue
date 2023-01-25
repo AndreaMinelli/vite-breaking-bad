@@ -4,22 +4,40 @@ import PokemonCard from "./PokemonCard.vue";
 import AppLoader from "./AppLoader.vue";
 import AppPagination from "./AppPagination.vue";
 import SelectOptions from "./SelectOptions.vue";
+import InputArea from "./InputArea.vue";
 export default {
   name: "App Main",
-  components: { PokemonCard, AppLoader, SelectOptions, AppPagination },
+  components: {
+    PokemonCard,
+    AppLoader,
+    SelectOptions,
+    AppPagination,
+    InputArea,
+  },
   data() {
     return {
       store,
     };
   },
   props: { pokemonTypes: Array },
-  emits: ["pokemon-type-selected", "change-page"],
+  emits: [
+    "pokemon-type-selected",
+    "change-page",
+    "pokemon-name-filter",
+    "submit-name-filter",
+  ],
   methods: {
     getPokemonType(selected) {
       this.$emit("pokemon-type-selected", selected);
     },
     changePage(target) {
       this.$emit("change-page", target);
+    },
+    pokemonNameFilter(text) {
+      this.$emit("pokemon-name-filter", text);
+    },
+    submitNameFilter() {
+      this.$emit("submit-name-filter");
     },
   },
 };
@@ -29,6 +47,11 @@ export default {
   <div class="container">
     <div class="main-view">
       <div v-show="!store.isLoading" class="select-type">
+        <input-area
+          @typing="pokemonNameFilter"
+          @submit-text="submitNameFilter"
+          placeholder="Filtra per nome..."
+          class="w-50"></input-area>
         <select-options
           first-option="All"
           :options="pokemonTypes"
@@ -60,7 +83,8 @@ export default {
 }
 .select-type {
   margin: 1rem 1rem 1rem auto;
-  text-align: end;
+  display: flex;
+  justify-content: space-between;
 }
 .row {
   height: 100%;
